@@ -8,27 +8,35 @@
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>E:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>E:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>E:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PLibCore">
       <HintPath>F:\下载\Compressed\PLib\PLibCore.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PLibOptions">
       <HintPath>F:\下载\Compressed\PLib\PLibOptions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PLibUI">
       <HintPath>F:\下载\Compressed\PLib\PLibUI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>E:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>E:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
 
