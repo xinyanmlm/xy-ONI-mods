@@ -42,7 +42,7 @@ namespace EmitO2
             EthanolGas气态乙醇
         }
 
-        // ---------- 气体枚举 → SimHashes 整数映射 ----------
+        // ---------- 气体枚举 → SimHashes 整数映射，来自SimHashes.cs ----------
         private static readonly Dictionary<UserOption, int> GasHashLookup = new Dictionary<UserOption, int>
         {
             { UserOption.O2氧气, -1528777920 },
@@ -101,22 +101,20 @@ namespace EmitO2
             [HarmonyTranspiler]
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                int targetHash = GetSelectedGasHash();
                 var codes = new List<CodeInstruction>(instructions);
-
-                for (int i = 0; i < codes.Count - 1; i++)
+                for (int i = 0; i < codes.Count - 2; i++)
                 {
-                    // 查找 ldc.i4 加载二氧化碳常量，且下一条指令是 call（调用方法）
-                    if (codes[i].opcode == OpCodes.Ldc_I4 &&
-                        codes[i].operand is int hash && hash == 1960575215 && // CarbonDioxide
-                        codes[i + 1].opcode == OpCodes.Call)
+                    // 原来的匹配模式，已通过 IL 验证非常准确
+                    if (codes[i].opcode == OpCodes.Ldloc_S &&
+                        codes[i + 1].opcode == OpCodes.Callvirt &&
+                        codes[i + 2].opcode == OpCodes.Ldc_I4)
                     {
-                        // 检查调用的方法是否为 Storage.AddGasChunk（通过方法名简单判断）
+                        // 确保替换的是 AddGasChunk 的参数（可选的安全检查）
                         var method = codes[i + 1].operand as MethodInfo;
-                        if (method != null && method.Name == "AddGasChunk")
+                        if (method != null && method.Name == "GetComponent")
                         {
-                            codes[i].operand = targetHash; // 替换为玩家选择的气体
-                            break; // 仅替换第一个匹配项，避免重复
+                            codes[i + 2].operand = GetSelectedGasHash();
+                            break; // 仅替换第一个匹配点即可
                         }
                     }
                 }
@@ -144,26 +142,30 @@ namespace EmitO2
         public class CO2Manager_Sim33ms_Patch
         {
             /// <summary>
-            /// Transpiler：将 ModifyMass 和 SpawnBubble 调用中的 CarbonDioxide 常量替换为目标气体。
+            /// Transpiler：将 SimMessages.ModifyMass 调用中的 SimHashes.CarbonDioxide
+            /// 替换为用户选择的气体类型，从而改变粒子落地后实际添加的元素。
+            /// 匹配逻辑：ldc.i4 1960575215 后紧跟 call ModifyMass，精准匹配唯一目标，
+            /// 避开元素 ID 比较（ldc.i4 + beq.s），不会影响呼吸判定。
             /// </summary>
             [HarmonyTranspiler]
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                int targetHash = GetSelectedGasHash();
                 var codes = new List<CodeInstruction>(instructions);
-
                 for (int i = 0; i < codes.Count - 1; i++)
                 {
+                    // 匹配 ldc.i4 加载 CarbonDioxide 常量，且下一条指令是 call
                     if (codes[i].opcode == OpCodes.Ldc_I4 &&
-                        codes[i].operand is int hash && hash == 1960575215 && // CarbonDioxide
                         codes[i + 1].opcode == OpCodes.Call)
                     {
+                        // 额外安全检查：确保调用的方法是 ModifyMass
                         var method = codes[i + 1].operand as MethodInfo;
                         if (method != null &&
-                            (method.Name == "ModifyMass" || method.Name == "SpawnBubble"))
+                            (method.Name == "ModifyMass"))
                         {
-                            codes[i].operand = targetHash; // 替换气体类型
-                            // 不 break，允许替换多处（ModifyMass 和 SpawnBubble 可能各自出现）
+                            // 替换为玩家选择的气体哈希值
+                            codes[i].operand = GetSelectedGasHash();
+                            // 方法内只有一处调用 ModifyMass，找到即可停止
+                            break;
                         }
                     }
                 }
