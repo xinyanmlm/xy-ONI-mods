@@ -18,9 +18,22 @@ namespace ModifyPlantPulverizer
             Storage.StoredItemModifier.Seal
         };
 
-        public override string[] GetDlcIds()
+        // 移除过时的API
+        // public override string[] GetDlcIds()
+        // {
+        //     return DlcManager.AVAILABLE_ALL_VERSIONS;
+        // }
+
+        public override string[] GetRequiredDlcIds()
         {
-            return DlcManager.AVAILABLE_ALL_VERSIONS;
+            // 该建筑在所有DLC版本下都可用，无需强制安装任何DLC
+            return Array.Empty<string>();
+        }
+
+        public override string[] GetForbiddenDlcIds()
+        {
+            // 不禁止任何DLC
+            return Array.Empty<string>();
         }
 
         public override BuildingDef CreateBuildingDef()
@@ -31,7 +44,7 @@ namespace ModifyPlantPulverizer
             string anim = "milkpress_kanim";
             int hitpoints = 100;
             float construction_time = 30f;
-            float[] tier = BUILDINGS.CONSTRUCTION_MASS_KG.TIER4;
+            float[] tier = TUNING.BUILDINGS.CONSTRUCTION_MASS_KG.TIER4;
             string[] all_MINERALS = MATERIALS.ALL_MINERALS;
             float melting_point = 1600f;
             BuildLocationRule build_location_rule = BuildLocationRule.OnFloor;
@@ -40,7 +53,7 @@ namespace ModifyPlantPulverizer
             BuildingDef buildingDef = BuildingTemplates.CreateBuildingDef(
                 id, width, height, anim, hitpoints, construction_time,
                 tier, all_MINERALS, melting_point, build_location_rule,
-                BUILDINGS.DECOR.PENALTY.TIER1, tier2, 0.2f);
+                TUNING.BUILDINGS.DECOR.PENALTY.TIER1, tier2, 0.2f);
 
             buildingDef.RequiresPowerInput = true;
             buildingDef.PowerInputOffset = new CellOffset(1, 0);
