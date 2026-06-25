@@ -6,7 +6,7 @@
 [*] 支持 25 种气体：氧气、氢气、氯气、蒸汽、各种金属气体等
 [*] 呼出量可调，范围 20 克 ～ 10 千克
 [*] 视觉效果与实际物质保持一致
-[*] 默认：呼出 20 克氧气
+[*] 默认：呼出 20 克氧气（设定多少克，复制人就一次呼出多少克）
 [/list]
 
 [b]更新日志[/b]
@@ -28,7 +28,7 @@
 [*] 25 gas types available: Oxygen, Hydrogen, Chlorine, Steam, metal gases, and more
 [*] Exhalation mass adjustable from 20g to 10kg
 [*] Visual particles match the actual gas type
-[*] Default: exhales 20g of Oxygen
+[*] Default: exhales 20g of Oxygen(duplicants exhale exactly the amount you set per breath)
 [/list]
 
 [b]Changelog[/b]
