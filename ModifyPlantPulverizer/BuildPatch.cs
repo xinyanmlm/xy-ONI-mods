@@ -3,19 +3,21 @@ using HarmonyLib;
 
 namespace ModifyPlantPulverizer
 {
-    // Token: 0x02000004 RID: 4
     public static class BuildPatch
     {
-        // Token: 0x02000007 RID: 7
         [HarmonyPatch(typeof(GeneratedBuildings), "LoadGeneratedBuildings")]
         public static class PlantPulverizer_1LoadGeneratedBuildings_Patch
         {
-            // Token: 0x0600000E RID: 14 RVA: 0x0000260C File Offset: 0x0000080C
             public static void Prefix()
             {
-                ModUtil.AddBuildingToPlanScreen("Refining", "SoybeanMilkMachine");
-                Db.Get().Techs.Get("FoodRepurposing").unlockedItemIDs.Add("SoybeanMilkMachine");
-                StringUtils.Add_New_BuildStrings("SoybeanMilkMachine", BUILDING_MOD.NAME, BUILDING_MOD.DESC, BUILDING_MOD.EFFECT);
+                // 注册建筑
+                // BuildingConfigManager.Instance.RegisterBuilding(new SoybeanMilkMachineConfig());
+                // 将建筑添加到菜单
+                ModUtil.AddBuildingToPlanScreen("Refining", SoybeanMilkMachineConfig.ID);
+                // 使其可研究
+                Db.Get().Techs.Get("FoodRepurposing").unlockedItemIDs.Add(SoybeanMilkMachineConfig.ID);
+                // 调用上面的轮子,将字符串添加到游戏中
+                StringUtils.Add_New_BuildStrings(SoybeanMilkMachineConfig.ID, BUILDING_MOD.NAME, BUILDING_MOD.DESC, BUILDING_MOD.EFFECT);
             }
         }
     }

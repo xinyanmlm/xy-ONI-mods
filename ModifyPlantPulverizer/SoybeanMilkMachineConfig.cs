@@ -19,22 +19,22 @@ namespace ModifyPlantPulverizer
         };
 
         // 移除过时的API
-        // public override string[] GetDlcIds()
+        public override string[] GetDlcIds()
+        {
+            return DlcManager.AVAILABLE_ALL_VERSIONS;
+        }
+
+        // public override string[] GetRequiredDlcIds()
         // {
-        //     return DlcManager.AVAILABLE_ALL_VERSIONS;
+        //     // 该建筑在所有DLC版本下都可用，无需强制安装任何DLC
+        //     return Array.Empty<string>();
         // }
 
-        public override string[] GetRequiredDlcIds()
-        {
-            // 该建筑在所有DLC版本下都可用，无需强制安装任何DLC
-            return Array.Empty<string>();
-        }
-
-        public override string[] GetForbiddenDlcIds()
-        {
-            // 不禁止任何DLC
-            return Array.Empty<string>();
-        }
+        // public override string[] GetForbiddenDlcIds()
+        // {
+        //     // 不禁止任何DLC
+        //     return Array.Empty<string>();
+        // }
 
         public override BuildingDef CreateBuildingDef()
         {
