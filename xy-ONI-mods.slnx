@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="EmitO2/EmitO2.csproj" />
+  <Project Path="ModifyPlantPulverizer/ModifyPlantPulverizer.csproj" Id="d9e5c559-10c5-472b-ba66-a51e519faed2" />
 </Solution>
