@@ -72,8 +72,8 @@ namespace ModifyPlantPulverizer
         {
             go.AddOrGet<LogicOperationalController>();
             go.AddOrGet<DropAllWorkable>();
-            // 本项存疑，不知道是控制什么的，原版与mod设置的都是true
-            go.AddOrGet<BuildingComplete>().isManuallyOperated = true; 
+            // 本项存疑，应该是控制复制人操作的，原版设置的都是true
+            go.AddOrGet<BuildingComplete>().isManuallyOperated = false; 
 
             ComplexFabricator complexFabricator = go.AddOrGet<ComplexFabricator>();
             complexFabricator.sideScreenStyle = ComplexFabricatorSideScreen.StyleSetting.ListQueueHybrid;
@@ -88,10 +88,9 @@ namespace ModifyPlantPulverizer
             workable.overrideAnims = new KAnimFile[] { Assets.GetAnim("anim_interacts_milkpress_kanim") };
             workable.workingPstComplete = new HashedString[] { "working_pst_complete" };
 
-            // 显式设置 storeProduced 为 false（与原版一致）
-            // 原版在 ConfigureBuildingTemplate 最后设置了 complexFabricator.storeProduced = false;，而Mod未设置（默认为 true）。
-            // 虽然 ConduitDispenser 仍会排出产物，但设为 false 可以避免产物堆积在存储中，与游戏原版行为一致。
-            complexFabricator.storeProduced = false;
+            // 原版在 ConfigureBuildingTemplate 最后设置了 complexFabricator.storeProduced = false;
+            // 经验证，设置为false会导致豆浆机直接产出为掉落物，使得液体输出管道形同虚设，必须设置为true
+            complexFabricator.storeProduced = true;
 
             // 为所有存储设置相同的 StoredItemModifiers
             complexFabricator.inStorage.SetDefaultStoredItemModifiers(RefineryStoredItemModifiers);
