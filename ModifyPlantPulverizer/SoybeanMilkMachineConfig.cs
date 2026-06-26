@@ -118,6 +118,7 @@ namespace ModifyPlantPulverizer
                 new ComplexRecipe.RecipeElement("ColdWheatSeed", 10f),
                 new ComplexRecipe.RecipeElement(new Tag[] { SimHashes.Water.CreateTag(), SimHashes.Mucus.CreateTag() }, 15f)
             };
+            // 冰霜麦粒 10 千克 + 水 15 千克 ⇒  咸乳 20 千克
             ComplexRecipe.RecipeElement[] outputs1 = new ComplexRecipe.RecipeElement[]
             {
                 new ComplexRecipe.RecipeElement(SimHashes.Milk.CreateTag(), 20f, ComplexRecipe.RecipeElement.TemperatureOperation.AverageTemperature, false)
@@ -125,6 +126,7 @@ namespace ModifyPlantPulverizer
             ComplexRecipe recipe1 = new ComplexRecipe(
                 ComplexRecipeManager.MakeRecipeID(ID, inputs1, outputs1),
                 inputs1, outputs1, 0, 0);
+            // 时间
             recipe1.time = 20f;
             recipe1.description = string.Format(STRINGS.BUILDINGS.PREFABS.MILKPRESS.WHEAT_MILK_RECIPE_DESCRIPTION,
                 STRINGS.ITEMS.FOOD.COLDWHEATSEED.NAME, SimHashes.Milk.CreateTag().ProperName());
@@ -204,7 +206,7 @@ namespace ModifyPlantPulverizer
                 ComplexRecipe recipe5 = new ComplexRecipe(
                     ComplexRecipeManager.MakeRecipeID(ID, inputs5, outputs5),
                     inputs5, outputs5, 0, 0);
-                recipe5.time = 40f;
+                recipe5.time = 20f;
                 recipe5.description = string.Format(STRINGS.BUILDINGS.PREFABS.MILKPRESS.PHYTO_OIL_RECIPE_DESCRIPTION,
                     ELEMENTS.SLIMEMOLD.NAME, SimHashes.PhytoOil.CreateTag().ProperName(), SimHashes.Dirt.CreateTag().ProperName());
                 recipe5.nameDisplay = ComplexRecipe.RecipeNameDisplay.IngredientToResult;
@@ -227,7 +229,7 @@ namespace ModifyPlantPulverizer
                 ComplexRecipe recipe6 = new ComplexRecipe(
                     ComplexRecipeManager.MakeRecipeID(ID, inputs6, outputs6),
                     inputs6, outputs6, 0, 0, DlcManager.DLC4);
-                recipe6.time = 40f;
+                recipe6.time = 20f;
                 recipe6.description = GameUtil.SafeStringFormat(STRINGS.BUILDINGS.PREFABS.MILKPRESS.KELP_TO_PHYTO_OIL_RECIPE_DESCRIPTION,
                     STRINGS.ITEMS.INGREDIENTS.KELP.NAME, SimHashes.PhytoOil.CreateTag().ProperName());
                 recipe6.nameDisplay = ComplexRecipe.RecipeNameDisplay.IngredientToResult;
@@ -251,7 +253,7 @@ namespace ModifyPlantPulverizer
                 ComplexRecipe recipe7 = new ComplexRecipe(
                     ComplexRecipeManager.MakeRecipeID(ID, inputs7, outputs7),
                     inputs7, outputs7, 0, 0, DlcManager.DLC4);
-                recipe7.time = 40f;
+                recipe7.time = 20f;
                 recipe7.description = GameUtil.SafeStringFormat(STRINGS.BUILDINGS.PREFABS.MILKPRESS.RESIN_FROM_AMBER_RECIPE_DESCRIPTION,
                     SimHashes.Amber.CreateTag().ProperName(),
                     SimHashes.NaturalResin.CreateTag().ProperName(),
@@ -277,7 +279,7 @@ namespace ModifyPlantPulverizer
                 ComplexRecipe recipe8 = new ComplexRecipe(
                     ComplexRecipeManager.MakeRecipeID(ID, inputs8, outputs8),
                     inputs8, outputs8, 0, 0, DlcManager.DLC5);
-                recipe8.time = 40f;
+                recipe8.time = 20f;
                 recipe8.description = GameUtil.SafeStringFormat(STRINGS.BUILDINGS.PREFABS.MILKPRESS.PALMWOOD_TO_LATEX_RECIPE_DESCRIPTION,
                     SimHashes.PalmWood.CreateTag().ProperName(), SimHashes.Latex.CreateTag().ProperName());
                 recipe8.nameDisplay = ComplexRecipe.RecipeNameDisplay.IngredientToResult;
